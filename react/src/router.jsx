@@ -18,20 +18,6 @@ import Dashboard from "./views/Dashboard";
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <GuestLayout />,
-        children: [
-            {
-                path: '/login',
-                element: <Login />
-            },
-            {
-                path: '/signup',
-                element: <Signup />
-            },
-        ]
-    },
-    {
-        path: '/',
         element: <DefaultLayout />,
         children: [
             {
@@ -45,6 +31,20 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <Dashboard />
+            },
+        ]
+    },
+    {
+        path: '/',
+        element: <GuestLayout />,
+        children: [
+            {
+                path: '/login',
+                element: <Login />
+            },
+            {
+                path: '/signup',
+                element: <Signup />
             },
         ]
     },

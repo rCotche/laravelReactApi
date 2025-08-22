@@ -4,12 +4,20 @@ import './index.css'
 import App from './App.jsx'
 import { RouterProvider } from 'react-router-dom'
 import router from './router.jsx'
+import ContextProvider from './contexts/ContextProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/*
-    *** Pour utiliser les routes
+    *** Pour pouvoir utiliser le context
     */}
-    <RouterProvider router={router} />
+    <ContextProvider>
+      {/*
+      *** Tous les element enfant de ContextProvider ont acces aux context
+      *** Pour utiliser les routes
+      */}
+      <RouterProvider router={router} />
+    </ContextProvider>
+
   </StrictMode>,
 )
