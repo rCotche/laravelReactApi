@@ -1,3 +1,7 @@
+https://www.youtube.com/watch?v=qJq9ZMB2Was
+
+///////////////////////
+
 laravel new example-app
 type "none" (front)
 type "0" (unit test)
@@ -29,3 +33,9 @@ npm create vite > project name > react > js >
 
 pour changer de port lorsque j'execute la cmd "npm run dev"
 dans le dossier react > package.json > scipts > dev > "vite --port=3000"
+
+///////////////////////
+
+npm i react-router-dom -S
+
+///////////////////////
