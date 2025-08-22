@@ -1,0 +1,31 @@
+laravel new example-app
+type "none" (front)
+type "0" (unit test)
+type "yes" (npm install && npm run build)
+
+cd example-app
+code ./
+composer run dev
+
+extension > SQLite viewer
+
+setup .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+php artisan migrate
+
+si erreur (https://stackoverflow.com/questions/63015038/laravel-error-1071-key-was-too-long-php-artisan-migrate):
+config > database.php > mysql > 'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
+
+
+///////////////////////
+
+npm create vite > project name > react > js > 
+
+pour changer de port lorsque j'execute la cmd "npm run dev"
+dans le dossier react > package.json > scipts > dev > "vite --port=3000"
