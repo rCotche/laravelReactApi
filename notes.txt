@@ -39,3 +39,8 @@ dans le dossier react > package.json > scipts > dev > "vite --port=3000"
 npm i react-router-dom -S
 
 ///////////////////////
+
+Pour les requetes http
+npm i axios -S
+
+///////////////////////
