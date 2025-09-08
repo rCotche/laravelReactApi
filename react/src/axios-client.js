@@ -51,7 +51,9 @@ axiosClient.interceptors.request.use((config) => {
 axiosClient.interceptors.response.use((response) => {
     return response
 }, (error) => {
+    //response du serveur
     const { response } = error;
+    //401 unauthorized
     if (response.status === 401) {
         localStorage.removeItem('ACCESS_TOKEN')
         // window.location.reload();

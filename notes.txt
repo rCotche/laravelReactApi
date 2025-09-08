@@ -44,3 +44,5 @@ Pour les requetes http
 npm i axios -S
 
 ///////////////////////
+1:17:00
+php artisan make:Controller Api/AuthController
