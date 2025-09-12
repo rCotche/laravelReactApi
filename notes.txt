@@ -46,3 +46,9 @@ npm i axios -S
 ///////////////////////
 1:17:00
 php artisan make:Controller Api/AuthController
+
+php artisan make:request LoginRequest
+
+php artisan make:request SignupRequest
+
+///////////////////////

@@ -5,6 +5,8 @@ import { useStateContext } from '../contexts/ContextProvider'
 //component
 const Signup = () => {
   //createRef: doit etre importe
+  //permet d’obtenir une référence directe à un élément DOM (comme un <input>)
+  // ou à une instance de composant React dans un composant de classe.
   const nameRef = createRef()
   const emailRef = createRef()
   const passwordRef = createRef()
