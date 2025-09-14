@@ -1,7 +1,8 @@
-import React, { createRef, useState } from 'react'
+import { createRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateContext } from '../contexts/ContextProvider'
 import axiosClient from "../axios-client.js";
+import axios from "axios";
 
 //component
 const Signup = () => {
@@ -14,7 +15,7 @@ const Signup = () => {
   const passwordConfirmationRef = createRef()
   //useStateContext: importe depuis mon fichier
   //{setUser, _setToken}: fonction qui vient du StateContext
-  const {setUser, _setToken} = useStateContext()
+  const { setUser, _setToken } = useStateContext()
   //useState: doit etre importe
   const [errors, setErrors] = useState(null)
 
@@ -37,7 +38,7 @@ const Signup = () => {
     //then(() => {}), si reussi
     //catch(() => {}), si erreur
     axiosClient.post('/signup', payload)
-      .then(({data}) => {
+      .then(({ data }) => {
         //met à jour le context grace aux fonctions
         //pas besoin de redirect car maintenant que les infos
         //du context, du state ont changé l'app va re render
@@ -45,11 +46,22 @@ const Signup = () => {
         _setToken(data.token);
       })
       .catch(err => {
-        const response = err.response;
-        //422 validation error
-        if (response && response.status === 422) {
-          setErrors(response.data.errors)
+        // Cas 1 : vraie réponse HTTP (422 validation)
+        if (axios.isAxiosError(err) && err.response) {
+          const { status, data } = err.response;
+          if (status === 422 && data?.errors) {
+            // Laravel renvoie { message: "...", errors: { field: [ "msg" ] } }
+            setErrors(data.errors);
+            return;
+          }
+          // Autres statuts (400/401/403/404/500...) -> affiche un message générique
+          setErrors({ _general: [data?.message || "Une erreur est survenue."] });
+          return;
         }
+
+        // Cas 2 : AUCUNE réponse (réseau/CORS/timeout/URL) 
+        setErrors({ _general: ["Impossible de joindre l’API (réseau/CORS)."] });
+        console.error('Network/no-response:', err.code, err.message);
       })
   }
   return (
@@ -57,11 +69,18 @@ const Signup = () => {
       <div className="form">
         <form onSubmit={onSubmit}>
           <h1 className="title">Signup for Free</h1>
-          
-          <input ref={nameRef} type="text" placeholder="Full Name"/>
-          <input ref={emailRef} type="email" placeholder="Email Address"/>
-          <input ref={passwordRef} type="password" placeholder="Password"/>
-          <input ref={passwordConfirmationRef} type="password" placeholder="Repeat Password"/>
+          {errors &&
+            <div className="alert">
+              {/* errors: est un objet*/}
+              {Object.keys(errors).map(key => (
+                <p key={key}>{errors[key][0]}</p>
+              ))}
+            </div>
+          }
+          <input ref={nameRef} type="text" placeholder="Full Name" />
+          <input ref={emailRef} type="email" placeholder="Email Address" />
+          <input ref={passwordRef} type="password" placeholder="Password" />
+          <input ref={passwordConfirmationRef} type="password" placeholder="Repeat Password" />
           <button className="btn btn-block">Signup</button>
           <p className="message">Already registered? <Link to="/login">Sign In</Link></p>
         </form>
