@@ -48,24 +48,23 @@ axiosClient.interceptors.request.use((config) => {
 // est exécuté lorsqu'il y a une erreur
 // (par exemple une réponse non 2xx ou un problème réseau).
 // Typiquement, on s'en sert pour gérer les erreurs globalement avant de les propager.
-axiosClient.interceptors.response.use((response) => {
-    return response
-}, (error) => {
-    try {
-        //response du serveur
-        const { response } = error;
-        //401 unauthorized
-        if (response.status === 401) {
-            localStorage.removeItem('ACCESS_TOKEN')
-            // window.location.reload();
-        } else if (response.status === 404) {
-            //Show not found
-        }
-        throw error;
-    } catch (error) {
-        console.error(error);
+axiosClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const { response } = error || {};
+    if (response) {
+      if (response.status === 401) {
+        localStorage.removeItem('ACCESS_TOKEN');
+        // window.location.reload();
+      } else if (response.status === 404) {
+        // Not found => ton handling
+      }
+      // Optionnel: laisser passer le 422 pour être géré près du formulaire:
+      // if (response.status === 422) { ... }
     }
-})
+    return Promise.reject(error); // <-- important !
+  }
+);
 
 //axiosClient.interceptors.response.use(()=>{}, ()=>{})
 

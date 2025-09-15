@@ -46,22 +46,19 @@ const Signup = () => {
         _setToken(data.token);
       })
       .catch(err => {
-        // Cas 1 : vraie réponse HTTP (422 validation)
-        if (axios.isAxiosError(err) && err.response) {
-          const { status, data } = err.response;
-          if (status === 422 && data?.errors) {
-            // Laravel renvoie { message: "...", errors: { field: [ "msg" ] } }
-            setErrors(data.errors);
-            return;
-          }
-          // Autres statuts (400/401/403/404/500...) -> affiche un message générique
-          setErrors({ _general: [data?.message || "Une erreur est survenue."] });
-          return;
+        const res = err.response;
+        if (res?.status === 422) {
+          const apiErrors = res.data?.errors || {};
+          setErrors(apiErrors)
+          /*setErrors({
+            email: apiErrors.email?.[0],
+            name:  apiErrors.name?.[0],
+            // ... autres champs si besoin
+          });*/
+          return; // on a géré
         }
-
-        // Cas 2 : AUCUNE réponse (réseau/CORS/timeout/URL) 
-        setErrors({ _general: ["Impossible de joindre l’API (réseau/CORS)."] });
-        console.error('Network/no-response:', err.code, err.message);
+        // autres erreurs (réseau, 500, etc.)
+        console.error(err);
       })
   }
   return (
@@ -73,7 +70,7 @@ const Signup = () => {
             <div className="alert">
               {/* errors: est un objet*/}
               {Object.keys(errors).map(key => (
-                <p key={key}>{errors[key][0]}</p>
+                <p key={key}>{errors[key]}</p>
               ))}
             </div>
           }
