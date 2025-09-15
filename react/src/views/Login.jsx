@@ -36,7 +36,6 @@ const Login = () => {
       .catch((err) => {
         const res = err.response;
         if (res?.status === 422) {
-          console.error(res);
           const apiMessage = res.data?.message || {};
 
           setMessage(apiMessage);

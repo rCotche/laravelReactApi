@@ -16,7 +16,7 @@ const ContextProvider = ({children}) => {
     const [user, setUser] = useState({
         name: "John",
     });
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
 
     //une fonction flechee
     const _setToken = (token) => {
