@@ -13,9 +13,7 @@ const ContextProvider = ({children}) => {
     //user: state, variable
     //setUser: setter du state, de la variable
     //{} la valeur par default
-    const [user, setUser] = useState({
-        name: "John",
-    });
+    const [user, setUser] = useState({});
     const [token, setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
 
     //une fonction flechee

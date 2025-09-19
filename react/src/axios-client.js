@@ -55,6 +55,7 @@ axiosClient.interceptors.response.use(
     if (response) {
       if (response.status === 401) {
         localStorage.removeItem('ACCESS_TOKEN');
+        return;
         // window.location.reload();
       } else if (response.status === 404) {
         // Not found => ton handling
