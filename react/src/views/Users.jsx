@@ -23,8 +23,9 @@ const Users = () => {
         console.log(data)
         //setUsers(data.data)
       })
-      .catch(() => {
+      .catch((error) => {
         setIsLoading(false)
+        console.error(error)
       })
   }
   return (
