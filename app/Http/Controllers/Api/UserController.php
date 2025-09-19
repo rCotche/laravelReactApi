@@ -52,6 +52,23 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        //Ici, le paramètre $user est typé avec le modèle User.
+        // Laravel applique ce qu’on appelle le Route Model Binding :
+        // Si ta route est définie comme GET /users/{user},
+        // et que {user} correspond à l’ID (ou clé primaire) d’un utilisateur,
+        // alors Laravel va automatiquement chercher l’utilisateur en base et l’injecter dans $user.
+
+        //Requête : GET /users/5
+        //→ $user contient l’instance User dont id = 5.
+        //Si aucun utilisateur trouvé → Laravel renvoie automatiquement une 404.
+
+        //UserResource est une API Resource (classe qui étend Illuminate\Http\Resources\Json\JsonResource).
+        //Elle permet de contrôler le format JSON renvoyé pour un utilisateur.
+        //En enveloppant $user dans UserResource,
+        // tu ne retournes pas l’objet brut (qui pourrait contenir des champs sensibles comme password),
+        // mais uniquement les champs que tu choisis.
+
+        //Si tu fais GET /users/5 et que l’utilisateur existe, ta réponse sera un JSON formaté :
         return new UserResource($user);
     }
 
