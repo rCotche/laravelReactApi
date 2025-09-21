@@ -65,31 +65,27 @@ class AuthController extends Controller
     }
     public function signup(SignupRequest $request)
     {
-        try {
-            //récupere les données validée
-            //les regles pour la validation des champs textes
-            // sont dans la classe SignupRequest
-            $data = $request->validated();
-            //la fonction create permet de créer un objet User
-            //'name' propriete dans le model, $data['name'] le nom de l'input
-            //fonction bcrypt permet d'encrypt le champs password
-            //
-            //la fonction create retourne ce user
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-            ]);
+        //récupere les données validée
+        //les regles pour la validation des champs textes
+        // sont dans la classe SignupRequest
+        $data = $request->validated();
+        //la fonction create permet de créer un objet User
+        //'name' propriete dans le model, $data['name'] le nom de l'input
+        //fonction bcrypt permet d'encrypt le champs password
+        //
+        //la fonction create retourne ce user
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
 
-            //
-            $token = $user->createToken('main')->plainTextToken;
-            return response(compact('user', 'token'));
-            /*return response([
+        //
+        $token = $user->createToken('main')->plainTextToken;
+        return response(compact('user', 'token'));
+        /*return response([
                 'user' => $user,
                 'token' => $token,
             ]);*/
-        } catch (\Throwable $th) {
-            return response($th);
-        }
     }
 }

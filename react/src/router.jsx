@@ -6,6 +6,7 @@ import NotFound from "./views/NotFound";
 import GuestLayout from "./components/GuestLayout";
 import DefaultLayout from "./components/DefaultLayout";
 import Dashboard from "./views/Dashboard";
+import UserForm from "./views/UserForm";
 
 //un tableau d'objet
 //definis les routes de l'application
@@ -27,6 +28,15 @@ const router = createBrowserRouter([
             {
                 path: '/users',
                 element: <Users />
+            },
+            {
+                path: '/users/new',
+                element: <UserForm key="userCreate" />
+            },
+            {
+                //parametre id
+                path: '/users/:id',
+                element: <UserForm key="userUpdate" />
             },
             {
                 path: '/dashboard',

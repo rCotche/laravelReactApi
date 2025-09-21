@@ -4,7 +4,7 @@ import { useStateContext } from '../contexts/ContextProvider'
 import axiosClient from '../axios-client'
 
 const DefaultLayout = () => {
-  const { user, token, setUser, _setToken } = useStateContext()
+  const { user, token, notification, setUser, _setToken } = useStateContext()
 
   //si le token exist pas (donc pas authenticated)
   if (!token) {
@@ -63,6 +63,11 @@ const DefaultLayout = () => {
         <main>
           <Outlet />
         </main>
+        {notification &&
+          <div className="notification">
+            {notification}
+          </div>
+        }
       </div>
     </div>
   )
