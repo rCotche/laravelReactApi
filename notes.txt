@@ -176,3 +176,124 @@ Route::apiResource('photos', PhotoController::class);
 use to convert database model to json serializable
 c'est ce json qui sera envoyé to the client
 php artisan make:Resource UserResource
+
+///////////////////////
+
+type "ssl" dans la barre de recherche
+
+si failed > trois ti points > reinstall
+
+php configuration > 8.4
+
+file manager > zetwalnumerik.fr > public_html > delete default.php
+
+///////////////////////
+
+react folder > create .env.production > VITE_APP_BASE_URL=http://api.monsite.fr
+
+npm run build
+
+public_html > drag n drop tous les fichiers contenu dans le dossier "dist"
+
+public_html > create ".htaccess" >
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.html
+
+///////////////////////
+
+type "ssl" dans la barre de recherche
+
+ssh access > ssh status enable
+
+change password
+
+log in to ssh > copy la command > git bash ou powershel > paste command > yes > type mot de passe
+
+clear
+
+ls -la
+
+type "subdomain" dans la barre de recherche
+
+create subdomain > pas de custom
+/*
+git bash ou powershel > cd domains/monsite.fr/public_html > ls -la
+
+cd api > ls -la
+*/
+
+git bash ou powershel > cd domains
+
+github > clone repository button
+
+git bash ou powershel > git clone repository api.monsite.fr > enter
+
+cd api.monsite.fr
+
+https://getcomposer.org/download > Command-line installation > copy
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'ed0feb545ba87161262f2d45a633e34f591ebb3381f2e0063c345ebea4d228dd0043083717770234ec00c5a9f9593792') { echo 'Installer verified'.PHP_EOL; } else { echo 'Installer corrupt'.PHP_EOL; unlink('composer-setup.php'); exit(1); }"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+
+git bash ou powershel > paste cmd line > enter
+
+php composer.phar install
+
+cp .env.example .env
+
+vim .env
+
+type I
+
+APP_NAME="Mon site"
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=false
+APP_URL=http://api.monsite.fr
+
+LOG_LEVEL=error
+
+escape button > type :wq
+
+php artisan key:generate --ansi
+
+cd ../
+
+cd monsite.fr/public_html > rm -rf api
+
+//ln target link
+//ln [l'emplacement reel du content] [là ou je veux qu'il ya le contenu]
+
+ln -s ~/domains/api.monsite.fr/public api
+
+///////////////////////
+
+type "mysql" dans la barre de recherche
+
+mysql databases
+
+database n user setup
+
+cd ~/domains/api.monsite.fr
+
+vim .env
+
+type I
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=database name
+DB_USERNAME=database user
+DB_PASSWORD=database pass
+
+escape button > type :wq
+
+php artisan migrate
+
+php artisan db:seed
+
+type "phpmyadmin" dans la barre de recherche
